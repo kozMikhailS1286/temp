@@ -13,11 +13,18 @@ function App(props: any) {
   let [accordionCollapsed, setAccordionCollapsed] = useState<boolean>(false)
   let[switchOn, setSwitchOn] = useState<boolean>(false)
 
+    let items = [{title: "Dimych", value: 1}, {title: "Valera", value: 1}]
+
   return (
     <div>
       <Rating value={ratingValue} onClick={setRatingValue}/>
       <UncontrolledRating />
-      <Accordion titleValue={"Menu"} collapsed={accordionCollapsed} onChange={() => {setAccordionCollapsed(!accordionCollapsed)}}/>
+      <Accordion titleValue={"Menu"}
+                 collapsed={accordionCollapsed}
+                 onChange={() => {setAccordionCollapsed(!accordionCollapsed)}}
+                 items={items}
+                 onClick={()=>{}}
+      />
       {/* <OnOff on={switchOn} onChange={setSwitchOn}/> */}
       <UncontrolledOnOff onChange={setSwitchOn}/> {switchOn.toString()}
     </div>
