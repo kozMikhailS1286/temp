@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 
 export default {
     title: 'UseMemo'
@@ -84,3 +84,42 @@ export const HelpsToReactMemo = () => {
         {/*Использует Users, а сам Users использует UserSecret*/}
     </>
 }
+
+
+
+export const LikeUseCallback = () => {
+    console.log("LikeUseCallback")
+    const [counter, setCounter] = useState(0)
+    const [books, setBooks] = useState(["React", "JS", "CSS", "HTML"])
+
+
+// useMemo и useCallback дают одинаковый результат, только имеют разный синтаксис.
+    const memoizedAddBook = useMemo(() => {
+        return () => {
+            const newBook = [...books, 'Angular ' + new Date().getTime()]
+            setBooks(newBook)
+        }
+    }, [books])
+
+
+    const memoizedAddBook2 = useCallback(() => {
+            const newBook = [...books, 'Angular ' + new Date().getTime()]
+            setBooks(newBook)
+    }, [books])
+
+    return <>
+        <button onClick={()=>{setCounter(counter+1)}}> + </button>
+        {counter}
+        <Book addBook={memoizedAddBook2} />
+    </>
+}
+
+const BooksSecret = (props: {addBook: () => void}) => {
+    console.log("BooksSecret") // Не будет срабатывать, т.к. пропсы не изменились и используя React.memo
+    // она не перерисовывается. Т.к. данные именно компоненты Users не поменялись.
+    return <div>
+        <button onClick={()=>props.addBook()}> add book </button>
+    </div>
+}
+
+const Book = React.memo(BooksSecret);

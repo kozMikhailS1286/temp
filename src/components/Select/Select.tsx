@@ -2,7 +2,7 @@ import React, {useState, KeyboardEvent, useEffect} from "react";
 import s from "./Select.module.css"
 
 
-type ItemsType = {
+export type ItemsType = {
     title: string
     value: any
 }

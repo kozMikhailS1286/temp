@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { Select } from "./Select";
+import React, {useMemo, useState} from "react";
+import {ItemsType, Select} from "./Select";
 
 
 export default {
