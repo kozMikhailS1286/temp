@@ -9,6 +9,7 @@ type ActionType = {
 }
 
 export const reducer = (state: StateType, action: ActionType): StateType => {
+
     switch (action.type) {
         case TOGGLE_COLLAPSED:
             return {

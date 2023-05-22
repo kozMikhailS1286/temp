@@ -8,7 +8,7 @@ export type PropsType = {
 
 
 function OnOff(props: PropsType) {
-
+    console.log("OnOff rending")
 const onStyle = {
     width: "30px",
     height: "20px",

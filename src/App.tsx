@@ -16,7 +16,7 @@ function App(props: any) {
     // let [switchOn, setSwitchOn] = useState<boolean>(false)
     // let [select, setSelect] = useState<boolean>(false)
 
-    // let items = [{title: "Dimych", value: 1}, {title: "Valera", value: 2}]
+    let items = [{title: "Dimych", value: 1}, {title: "Valera", value: 2}]
     // let selectItems = [{title: "JS", value: 1}, {title: "CSS", value: 2}]
 
   return (
@@ -32,7 +32,7 @@ function App(props: any) {
           {/*           onClick={() => {*/}
           {/*           }}*/}
           {/*/>*/}
-          {/* <OnOff on={switchOn} onChange={setSwitchOn}/> */}
+          {/*<OnOff on={switchOn} onChange={setSwitchOn}/>*/}
           {/*<UncontrolledOnOff onChange={setSwitchOn}/> {switchOn.toString()}*/}
           {/*<Select value={" "}*/}
           {/*        onChange={() => {}}*/}
