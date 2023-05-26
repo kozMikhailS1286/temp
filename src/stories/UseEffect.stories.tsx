@@ -49,10 +49,10 @@ export const SimpleExample = () => {
 // к useEffect.
 
 
-export const SetTimeoutExample = () => {
+export const SetIntervalExample = () => {
     const [counter, setCounter] = useState(1)
 
-    console.log("SetTimeoutExample")
+    console.log("SetIntervalExample")
 
 
     // useEffect(()=> {
@@ -74,14 +74,16 @@ export const SetTimeoutExample = () => {
     //
     // },[])
 
-    // useEffect(()=> {
-    //
-    //     setInterval(()=>{
-    //         console.log("tick " + counter)
-    //         setCounter((state) => state + 1)
-    //     }, 1000);
-    //
-    // },[])
+    useEffect(()=> {
+
+        const intervalId = setInterval(()=>{
+            console.log("tick " + counter)
+            setCounter((state) => state + 1)
+        }, 1000);
+        return () => {
+            clearInterval(intervalId)
+        }
+    },[])
 
     // Такая запись: "(state) => state + 1", берет актуальное занчение "counter"
     // Такая запись: ""tick " + counter", берет из замыкания "counter", который
@@ -90,5 +92,84 @@ export const SetTimeoutExample = () => {
     return <>
         Hello, {counter}
         <button onClick={()=>{setCounter(counter + 1)}}> counter + </button>
+    </>
+}
+
+
+export const ResetEffectExample = () => {
+    const [counter, setCounter] = useState(1)
+
+    console.log("ResetEffectExample " + counter)
+
+    useEffect(() => {
+        console.log("Effect occurred " + counter)
+
+        // ниже пишем так чтоб сбросить эффект.
+        // Так надо для того, чтоб при умирании компоненты она не использовала память.
+        return () => {
+            console.log('Reset Effect ' + counter)
+        }
+
+    }, [counter])
+
+    const increase = () => {
+        setCounter(counter + 1)
+    }
+
+    return  <>
+                Hello, counter: {counter}
+                <button onClick={increase}> counter +</button>
+            </>
+}
+
+
+export const KeysTrackerExample = () => {
+    const [text, setText] = useState('')
+
+    console.log("KeysTrackerExample " + text)
+
+    useEffect(() => {
+
+        const handler = (e: KeyboardEvent) => {
+            console.log(e.key)
+            setText(text + e.key)
+        }
+        window.document.addEventListener('keypress', handler)
+
+        // Чтоб зачистить здесь, надо писать строго как внизу:
+        return () => {
+            window.document.removeEventListener('keypress', handler)
+        }
+    }, [text])
+
+
+    return  <>
+        Typed text: {text}
+    </>
+}
+
+
+export const SetTimeoutExample = () => {
+    const [text, setText] = useState('')
+
+    console.log("SetTimeoutExample " + text)
+
+    useEffect(() => {
+
+        const timeoutId = setTimeout(() => {
+            console.log('TIMEOUT EXPIRED')
+            setText('3 second passed')
+        }, 3000)
+
+        // Даде тут надо зачищаться, т.к. компонента может не прожить эти 3 сек
+        // и по сути отрисуется в убитой компоненте.
+        return () => {
+            clearTimeout(timeoutId)
+        }
+    }, [text])
+
+
+    return  <>
+        Typed text: {text}
     </>
 }
